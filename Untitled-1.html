@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tỏ tình</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+            margin-top: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        #no {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Bạn có đồng ý làm người yêu mình không? ❤️</h1>
+
+    <button onclick="yes()">Có 💖</button>
+    <button id="no" onmouseover="run()">Không 😆</button>
+
+    <script>
+        function yes() {
+            document.body.innerHTML =
+                "<h1>🎉 Yêu nhau thôi nào ❤️</h1>";
+        }
+
+        function run() {
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            document.getElementById("no").style.left = x + "px";
+            document.getElementById("no").style.top = y + "px";
+        }
+    </script>
+
+</body>
+
+</html>
