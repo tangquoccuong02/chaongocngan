@@ -1,49 +1,263 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 
 <head>
-    <meta charset="utf-8">
-    <title>Tỏ tình</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Ngọc Ngân 🌷</title>
+
     <style>
         body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd6e8, #fff3f8, #dff6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            font-family: Arial;
-            margin-top: 100px;
+            overflow: hidden;
         }
 
-        button {
-            padding: 10px 20px;
+        .card {
+            width: 90%;
+            max-width: 430px;
+            background: white;
+            padding: 30px 22px;
+            border-radius: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 2;
+        }
+
+        h1 {
+            color: #ff4f93;
+            font-size: 30px;
+        }
+
+        p {
+            color: #444;
+            font-size: 19px;
+            line-height: 1.5;
+        }
+
+        .top-icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .icon {
+            font-size: 65px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .hand {
+            animation: wave 1s infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(18deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-18deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .btn {
+            display: block;
+            width: 90%;
+            margin: 12px auto;
+            padding: 13px;
+            border: none;
+            border-radius: 25px;
+            background: #ff4f93;
+            color: white;
             font-size: 18px;
-            margin: 10px;
+            cursor: pointer;
         }
 
-        #no {
+        .btn:hover {
+            background: #ff2f80;
+        }
+
+        .sticker {
             position: absolute;
+            font-size: 32px;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-18px); }
+            100% { transform: translateY(0); }
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 15px;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Bạn có đồng ý làm người yêu mình không? ❤️</h1>
+    <div class="sticker" style="top:8%;left:10%;">💖</div>
+    <div class="sticker" style="top:15%;right:12%;">🌸</div>
+    <div class="sticker" style="bottom:12%;left:14%;">🐰</div>
+    <div class="sticker" style="bottom:10%;right:15%;">✨</div>
+    <div class="sticker" style="top:50%;left:5%;">💕</div>
+    <div class="sticker" style="top:52%;right:6%;">🥰</div>
 
-    <button onclick="yes()">Có 💖</button>
-    <button id="no" onmouseover="run()">Không 😆</button>
+    <div class="card" id="card">
+        <div class="top-icons">
+            <button class="icon hand" onclick="start()">👋</button>
+            <button class="icon" id="xBtn" onmouseover="runAway()" onclick="runAway()">❌</button>
+        </div>
+
+        <h1>Chào Ngọc Ngân 🌷</h1>
+        <p>Bấm vào bàn tay nếu Ngân đang rảnh nha 😆</p>
+        <p>🐰 💕 ✨</p>
+    </div>
 
     <script>
-        function yes() {
-            document.body.innerHTML =
-                "<h1>🎉 Yêu nhau thôi nào ❤️</h1>";
+        let answers = [];
+
+        function runAway() {
+            const btn = document.getElementById("xBtn");
+            const x = Math.random() * (window.innerWidth - 80);
+            const y = Math.random() * (window.innerHeight - 80);
+
+            btn.style.position = "fixed";
+            btn.style.left = x + "px";
+            btn.style.top = y + "px";
+            btn.style.zIndex = "99";
         }
 
-        function run() {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-            document.getElementById("no").style.left = x + "px";
-            document.getElementById("no").style.top = y + "px";
+        function saveAnswer(question, answer) {
+            answers.push(question + ": " + answer);
+        }
+
+        function start() {
+            document.getElementById("card").innerHTML = `
+                <h1>Cho mình hỏi vui xíu nha 😆</h1>
+                <p>Ngân thích làm gì nhất lúc rảnh?</p>
+
+                <button class="btn" onclick="saveAnswer('Sở thích','Nghe nhạc 🎵'); musicQuestion()">🎵 Nghe nhạc</button>
+                <button class="btn" onclick="saveAnswer('Sở thích','Xem phim 🍿'); movieQuestion()">🍿 Xem phim</button>
+                <button class="btn" onclick="saveAnswer('Sở thích','Ăn uống 🍔'); foodQuestion()">🍔 Ăn uống</button>
+                <button class="btn" onclick="saveAnswer('Sở thích','Ngủ 😴'); sleepQuestion()">😴 Ngủ</button>
+            `;
+        }
+
+        function musicQuestion() {
+            document.getElementById("card").innerHTML = `
+                <h1>🎵 Gu nhạc của Ngân là gì?</h1>
+                <p>Chọn thử một phong cách đi nè 🌸</p>
+
+                <button class="btn" onclick="playMusic('Nhạc chill 🌸', 'nhacchill.mp3')">🌸 Nhạc chill</button>
+                <button class="btn" onclick="playMusic('Nhạc buồn 🥺', 'nhacbuon.mp3')">🥺 Nhạc buồn</button>
+                <button class="btn" onclick="playMusic('Nhạc remix 🔥', 'nhacremix.mp3')">🔥 Nhạc remix</button>
+                <button class="btn" onclick="playMusic('Nhạc tình yêu 💖', 'nhactinhyeu.mp3')">💖 Nhạc tình yêu</button>
+            `;
+        }
+
+        function playMusic(style, fileName) {
+            saveAnswer('Gu nhạc', style);
+
+            document.getElementById("card").innerHTML = `
+                <h1>${style}</h1>
+                <p>Mình đoán Ngân sẽ thích bài này nè 🎶✨</p>
+
+                <!-- 
+                    CHỖ UP NHẠC:
+                    Upload file MP3 lên GitHub cùng chỗ với index.html.
+
+                    4 file cần có:
+                    nhacchill.mp3
+                    nhacbuon.mp3
+                    nhacremix.mp3
+                    nhactinhyeu.mp3
+
+                    Nếu muốn đổi tên file thì sửa trong hàm musicQuestion().
+                -->
+
+                <audio controls autoplay>
+                    <source src="${fileName}" type="audio/mpeg">
+                </audio>
+
+                <p style="font-size:14px;color:#666;">
+                    Nếu nhạc chưa phát thì bấm nút Play nha 😆
+                </p>
+
+                <button class="btn" onclick="movieQuestion()">Nghe xong rồi nè 🌷</button>
+            `;
+        }
+
+        function movieQuestion() {
+            document.getElementById("card").innerHTML = `
+                <h1>Ngân thích xem phim kiểu nào? 🍿</h1>
+
+                <button class="btn" onclick="saveAnswer('Phim','Tình cảm 💕'); foodQuestion()">💕 Tình cảm</button>
+                <button class="btn" onclick="saveAnswer('Phim','Hài hước 😂'); foodQuestion()">😂 Hài hước</button>
+                <button class="btn" onclick="saveAnswer('Phim','Kinh dị 👻'); foodQuestion()">👻 Kinh dị</button>
+                <button class="btn" onclick="saveAnswer('Phim','Hoạt hình 🐰'); foodQuestion()">🐰 Hoạt hình</button>
+            `;
+        }
+
+        function foodQuestion() {
+            document.getElementById("card").innerHTML = `
+                <h1>Món nào Ngân thích nhất? 🍔</h1>
+
+                <button class="btn" onclick="saveAnswer('Đồ ăn','Trà sữa 🧋'); personalityQuestion()">🧋 Trà sữa</button>
+                <button class="btn" onclick="saveAnswer('Đồ ăn','Gà rán 🍗'); personalityQuestion()">🍗 Gà rán</button>
+                <button class="btn" onclick="saveAnswer('Đồ ăn','Mì cay 🍜'); personalityQuestion()">🍜 Mì cay</button>
+                <button class="btn" onclick="saveAnswer('Đồ ăn','Ăn gì cũng được 😆'); personalityQuestion()">😆 Ăn gì cũng được</button>
+            `;
+        }
+
+        function sleepQuestion() {
+            document.getElementById("card").innerHTML = `
+                <h1>Ngủ là chân ái đúng không 😴</h1>
+                <p>Vậy chắc Ngân thuộc team dễ thương nhưng hơi lười xíu 😆</p>
+                <button class="btn" onclick="personalityQuestion()">Tiếp nè 🌷</button>
+            `;
+        }
+
+        function personalityQuestion() {
+            document.getElementById("card").innerHTML = `
+                <h1>Ngân thích người như thế nào? 🌸</h1>
+
+                <button class="btn" onclick="saveAnswer('Mẫu người','Vui tính 😆'); finalQuestion()">😆 Vui tính</button>
+                <button class="btn" onclick="saveAnswer('Mẫu người','Tử tế 😊'); finalQuestion()">😊 Tử tế</button>
+                <button class="btn" onclick="saveAnswer('Mẫu người','Biết quan tâm 🥰'); finalQuestion()">🥰 Biết quan tâm</button>
+                <button class="btn" onclick="saveAnswer('Mẫu người','Có chí tiến thủ 💪'); finalQuestion()">💪 Có chí tiến thủ</button>
+            `;
+        }
+
+        function finalQuestion() {
+            document.getElementById("card").innerHTML = `
+                <h1>Câu cuối thôi nha 😆</h1>
+                <p>Ngân thấy người tạo ra cái web này thế nào?</p>
+
+                <button class="btn" onclick="saveAnswer('Nhận xét','Cũng vui tính 😆'); result()">😆 Cũng vui tính</button>
+                <button class="btn" onclick="saveAnswer('Nhận xét','Hơi rảnh 😂'); result()">😂 Hơi rảnh</button>
+                <button class="btn" onclick="saveAnswer('Nhận xét','Cũng dễ thương 🐰'); result()">🐰 Cũng dễ thương</button>
+                <button class="btn" onclick="saveAnswer('Nhận xét','Không biết nữa 😳'); result()">😳 Không biết nữa</button>
+            `;
+        }
+
+        function result() {
+            document.getElementById("card").innerHTML = `
+                <h1>Xong rồi nè 🎉</h1>
+                <p>Cảm ơn Ngọc Ngân đã chơi tới đây nha 🌷</p>
+                <p>Chúc Ngân hôm nay vui vẻ thiệt nhiều 🐰✨</p>
+            `;
+
+            console.log(answers);
         }
     </script>
 
 </body>
-
 </html>
