@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -157,14 +156,14 @@ function musicQuestion() {
         <h1>🎵 Gu nhạc của Ngân là gì?</h1>
         <p>Chọn thử một phong cách đi nè 🌸</p>
 
-        <button class="btn" onclick="playMusic('Nhạc chill 🌸', 'nhactinhyeu.mp3')">🌸 Nhạc chill</button>
-        <button class="btn" onclick="playMusic('Nhạc buồn 🥺', 'nhactinhyeu.mp3')">🥺 Nhạc buồn</button>
-        <button class="btn" onclick="playMusic('Nhạc remix 🔥', 'nhactinhyeu.mp3')">🔥 Nhạc remix</button>
-        <button class="btn" onclick="playMusic('Nhạc tình yêu 💖', 'nhactinhyeu.mp3')">💖 Nhạc tình yêu</button>
+        <button class="btn" onclick="playMusic('Nhạc chill 🌸')">🌸 Nhạc chill</button>
+        <button class="btn" onclick="playMusic('Nhạc buồn 🥺')">🥺 Nhạc buồn</button>
+        <button class="btn" onclick="playMusic('Nhạc remix 🔥')">🔥 Nhạc remix</button>
+        <button class="btn" onclick="playMusic('Nhạc tình yêu 💖')">💖 Nhạc tình yêu</button>
     `;
 }
 
-function playMusic(style, fileName) {
+function playMusic(style) {
     saveAnswer('Gu nhạc', style);
 
     document.getElementById("card").innerHTML = `
@@ -172,19 +171,32 @@ function playMusic(style, fileName) {
         <p>Đây là bài mình chọn thử cho Ngân nè 🎶✨</p>
 
         <audio id="musicPlayer" controls autoplay>
-            <source src="${fileName}" type="audio/mpeg">
+            <source src="nhactinhyeu.mp3" type="audio/mpeg">
         </audio>
 
         <p style="font-size:14px;color:#666;">
             Nếu nhạc chưa phát thì bấm nút Play nha 😆
         </p>
 
-        <button class="btn" onclick="movieQuestion()">Nghe xong rồi nè 🌷</button>
+        <button class="btn" onclick="stopMusicAndNext()">Nghe xong rồi nè 🌷</button>
     `;
 
+    setTimeout(function() {
+        const player = document.getElementById("musicPlayer");
+        if (player) {
+            player.volume = 0.8;
+            player.play().catch(function(){});
+        }
+    }, 100);
+}
+
+function stopMusicAndNext() {
     const player = document.getElementById("musicPlayer");
-    player.volume = 0.8;
-    player.play().catch(() => {});
+    if (player) {
+        player.pause();
+        player.currentTime = 0;
+    }
+    movieQuestion();
 }
 
 function movieQuestion() {
@@ -253,4 +265,3 @@ function result() {
 
 </body>
 </html>
-```
